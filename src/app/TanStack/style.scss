@@ -1,0 +1,22 @@
+.Query {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+
+    aside {
+        width: 300px;
+        flex-basis: 300px;
+        flex-grow: 0;
+
+        a {
+            display: block;
+            padding: 10px;
+            border-bottom: 1px solid grey;
+        }
+    }
+
+    >div {
+        flex-grow: 1;
+        flex-basis: 100%;
+    }
+}

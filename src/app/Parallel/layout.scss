@@ -1,0 +1,31 @@
+.Parallel {
+
+    .container {
+        position: relative;
+        display: flex;
+        gap: 1rem;
+
+        .main {
+            flex-grow: 1;
+            padding: 0px 1rem;
+            background-color: rgba(36, 36, 36, 0.122);
+        }
+
+        .left,
+        .right {
+            width: 200px;
+            position: sticky;
+            top: calc(60px + 6rem);
+        }
+
+        .left {
+            left: 0px;
+        }
+
+        .right {
+            right: 0px;
+        }
+
+    }
+
+}
