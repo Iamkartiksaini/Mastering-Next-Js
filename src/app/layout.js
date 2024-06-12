@@ -12,11 +12,27 @@ export const metadata = {
   title,
   description,
   icons: "/favicon.ico",
-  keywords: ["Next.js", "React", "JavaScript", "Thread", "Discuss"],
+  keywords: [
+    "nextjs",
+    "nextjs14",
+    "next14",
+    "pwa",
+    "next-pwa",
+    "redux_toolkit",
+    "parallel_routing",
+  ],
+  themeColor: [{ media: "(prefers-color-scheme: dark)", color: "#fff" }],
+  // manifest: "/manifest.json",
   authors: [
     { name: "Kartik Saini", url: "https://thread-app-kartik.netlify.app" },
   ],
   creator: "Kartik Saini",
+  // viewport:
+  // "minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover",
+  // icons: [
+  //   { rel: "apple-touch-icon", url: "icons/icon-128x128.png" },
+  //   { rel: "icon", url: "icons/icon-128x128.png" },
+  // ],
   twitter: {
     title,
     description,

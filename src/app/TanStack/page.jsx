@@ -1,7 +1,6 @@
 'use client';
 
 import { useQuery } from 'react-query';
-import { useRouter } from 'next/navigation';
 
 const fetchUserData = async (id) => {
     const [postsResponse, usersResponse] = await Promise.all([
@@ -16,7 +15,6 @@ const fetchUserData = async (id) => {
 
 const Page = ({ searchParams }) => {
     const id = searchParams?.id || 1;
-
     const { isLoading, error, data } = useQuery(['userData', id], () => fetchUserData(id), {
         staleTime: 300000, // 5 minutes
         cacheTime: 300000, // 5 minutes

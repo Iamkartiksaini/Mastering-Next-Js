@@ -30,7 +30,8 @@
         display: flex;
         gap: 1.5rem;
 
-        a:hover {
+        a:hover,
+        .link:hover {
             color: rgb(125, 0, 154);
         }
     }
@@ -79,7 +80,6 @@
                 list-style: none;
                 display: flex;
                 flex-direction: column;
-                // gap: 5px;
 
                 .item {
                     cursor: pointer;
@@ -90,7 +90,6 @@
                     gap: 10px;
                     font-size: 1rem;
                     list-style: none;
-                    transition: .2s;
                     padding: 10px 1rem;
                     border-radius: 3px;
                     color: var(--textColor);
@@ -107,18 +106,33 @@
             padding: 3px 10px;
             color: white;
             background: rgb(125, 0, 154);
-            ;
             border-radius: 6px;
-            transition: all .2s;
         }
 
         input[type="checkbox"]:checked~#btn {
-            box-shadow: 0px 0px 1px 2px rgb(43, 43, 43);
+            box-shadow: 0px 0px 1px 2px rgb(158 153 153 / 70%);
         }
 
         input[type="checkbox"]:checked~.close-layer,
         input[type="checkbox"]:checked~.pop-up-menu {
             display: block;
+        }
+
+        input[type="checkbox"]:checked~.pop-up-menu {
+            transform-origin: var(--transform-origin);
+            animation: pop-up 0.3s 1 forwards;
+        }
+
+        input[type="checkbox"]:checked~.close-layer {
+            opacity: 0;
+            animation: pop-up 0.1s 1 forwards;
+        }
+    }
+
+    @keyframes pop-up {
+        100% {
+            scale: 1;
+            opacity: 1;
         }
     }
 }
