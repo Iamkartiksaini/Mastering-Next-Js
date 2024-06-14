@@ -20,10 +20,31 @@ body {
   color: rgb(var(--foreground-rgb));
   background: var(--primary-glow);
   min-height: 100vh;
+  position: relative;
 }
 .main-container {
   padding: 2rem;
   padding-top: calc(60px + 2rem);
+}
+#page-progresser {
+  position: fixed;
+  top: 60px;
+  left: 0px;
+  /* border-radius: 0px 10px 10px 0px; */
+  width: 0%;
+  height: 2px;
+  background-image: linear-gradient(to right, purple, blue);
+  animation: prog linear both;
+  animation-timeline: scroll(root);
+}
+
+@keyframes prog {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
 }
 
 a {

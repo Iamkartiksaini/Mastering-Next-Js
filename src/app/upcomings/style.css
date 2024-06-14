@@ -1,0 +1,10 @@
+.upcomingsPage {
+  /* height: 300vh; */
+  position: relative;
+}
+
+.item {
+  height: 40px;
+  background-color: rgba(0, 0, 0, 0.134);
+  margin-top: 5px;
+}

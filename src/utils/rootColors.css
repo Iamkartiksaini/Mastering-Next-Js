@@ -1,0 +1,29 @@
+:root {
+  --font: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue,
+    Ubuntu, sans-serif;
+  --primary: #6beeff;
+  --primarytext: #212143;
+  --txthighlight: #5a72ff;
+  --bghighlight: #e3e7fa;
+  --secondary: #4c77ec;
+  --tertiary: #9300ff;
+  --white: #fff;
+  --text: #b5c4de;
+  --dark: #07071b;
+  --subtitle: #bfbfdd;
+  --header-bg: #000027;
+  --darktext: #555177;
+  --headings: #fff;
+  --transition: all 0.3s ease-in-out;
+  --header: 70px;
+  --black: #171734;
+  --bodycolor: linear-gradient(74deg, #000000 0, #080820 100%);
+  --hl: #101028;
+  --hlhover: #232343;
+  --red: #ff4235;
+  --gradient1: linear-gradient(45deg, #6249ce, #35ffca);
+  --gradient2: linear-gradient(165deg, #2dfff9, #2dc5ff, #9300ff);
+  --cardgradient: linear-gradient(3deg, #0c0c1f 0, #17172f 50%, #16163a 100%);
+  --pcard: #87859f;
+  --borderdark: #1c1c44;
+}

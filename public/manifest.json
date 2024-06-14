@@ -1,0 +1,39 @@
+{
+    "theme_color": "#7008de",
+    "background_color": "#7008de",
+    "display": "minimal-ui",
+    "scope": "/",
+    "start_url": "/",
+    "name": "Discuss App",
+    "short_name": "Discuss",
+    "description": "Discuss is a social media app",
+    "icons": [
+        {
+            "src": "/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon-256x256.png",
+            "sizes": "256x256",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon-384x384.png",
+            "sizes": "384x384",
+            "type": "image/png"
+        },
+        {
+            "purpose": "maskable",
+            "sizes": "512x512",
+            "src": "icon512_maskable.png",
+            "type": "image/png"
+          },
+          {
+            "purpose": "any",
+            "sizes": "512x512",
+            "src": "icon512_rounded.png",
+            "type": "image/png"
+          }
+    ]
+}
