@@ -42,8 +42,10 @@ label {
   .pop-up-menu {
     display: none;
     position: absolute;
-    width: max-content;
+    width: var(--pop-up-menu-width);
+    height: var(--pop-up-menu-height);
     min-width: 250px;
+    max-width: 97vw;
     padding: 10px;
     overflow-y: auto;
     padding-bottom: 20px;
@@ -129,7 +131,7 @@ label {
     background-color: var(--hoverColor);
   }
 
-  #btn {
+  #btn:not([unstyled="true"]) {
     position: relative;
     padding: 10px 30px;
     color: white;

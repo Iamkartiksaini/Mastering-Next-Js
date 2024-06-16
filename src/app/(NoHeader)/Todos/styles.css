@@ -1,0 +1,88 @@
+.Todos {
+  --linear: linear-gradient(45deg, rgb(139 197 234), rgb(2 51 144));
+  background: linear-gradient(135deg, rgb(139 197 234), rgb(2 51 144));
+  padding: 2rem;
+  min-height: 100vh;
+
+  .header {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .form {
+    display: flex;
+    align-items: stretch;
+    margin-top: 10px;
+    input {
+      padding: 10px;
+      border: none;
+      background: #00000017;
+      &:nth-of-type(1) {
+        border-radius: 100px 0px 0px 100px;
+      }
+      &:nth-of-type(2) {
+        /* border-radius: 0px 100px 100px 0px; */
+      }
+      &:focus-visible {
+        outline: none;
+      }
+      &:focus-within {
+        box-shadow: 0px 0px 10px 1px #78b1de;
+      }
+    }
+    .submit {
+      background: linear-gradient(90deg, rgb(139 197 234), rgb(2 51 144));
+      padding: 10px 20px;
+      border-radius: 0px 100px 100px 0px;
+      border: none;
+      color: white;
+      font-weight: 800;
+      transform-origin: top left;
+      transition: opacity 0.3s ease-in-out;
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
+  .dragAndDrop {
+    margin-top: 2rem;
+    display: flex;
+    gap: 2rem;
+    justify-content: space-evenly;
+    section ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding-top: 2rem;
+      min-height: 400px;
+      border: 2px solid white;
+      padding: 0.5rem 0.75rem;
+      min-width: calc(250px + 1.5rem);
+      border-radius: 10px;
+      .content-box {
+        min-height: 60px;
+        min-width: 250px;
+        background: rgba(255, 255, 255, 0.25);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        backdrop-filter: blur(3.5px);
+        -webkit-backdrop-filter: blur(3.5px);
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        padding: 0.5rem 0.75rem;
+        text-transform: capitalize;
+        color: white;
+        h5 {
+          font-size: 18px;
+          font-weight: 600;
+        }
+        p {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}

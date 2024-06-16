@@ -29,6 +29,10 @@ const Header = () => {
         }, {
             name: "PWA",
             link: "/pwa"
+        },
+        {
+            name: "Todos",
+            link: "Todos"
         }
         , {
             name: "Test",

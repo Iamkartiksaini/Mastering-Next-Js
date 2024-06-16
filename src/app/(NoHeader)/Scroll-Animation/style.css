@@ -1,0 +1,241 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: whitesmoke;
+  --main-padding: 2rem;
+  --light-bg: rgba(0, 0, 0, 0.082);
+  --blue: rgb(0, 94, 255);
+  /* height: calc(100vh * 2); */
+  /* font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-size: contain;
+  background-repeat: no-repeat repeat;
+  color: black;
+  */
+  timeline-scope: --section1, --section2, --section3, --section4;
+  --active-color: rgb(202, 0, 252);
+}
+
+.progresser {
+  position: fixed;
+  top: 61px;
+  left: 0px;
+  border-radius: 0px 10px 10px 0px;
+  width: 0.1%;
+  height: 3px;
+  background-image: linear-gradient(
+    to right,
+    var(--active-color) 0%,
+    var(--blue)
+  );
+  animation: progresser linear both;
+  animation-timeline: scroll(root);
+}
+@keyframes progresser {
+  100% {
+    background-image: linear-gradient(
+      to right,
+      var(--active-color) 40%,
+      var(--blue)
+    );
+    width: 100%;
+  }
+}
+
+header {
+  position: fixed;
+  height: 60px;
+  background-color: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(3px);
+  z-index: 99;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px var(--main-padding);
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  h2 {
+    letter-spacing: 2px;
+    &::first-letter {
+      color: rgb(0, 94, 255);
+      font-size: 2rem;
+    }
+    span {
+      color: var(--active-color);
+      position: relative;
+      left: -7px;
+      font-family: monospace;
+      font-size: 2rem;
+    }
+  }
+  .right {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    a {
+      font-size: 1rem;
+      font-weight: bolder;
+      text-decoration: none;
+      color: rgb(48, 48, 48);
+      transition: color 0.1s ease-in-out;
+      padding: 3px 10px;
+      border-radius: 5px;
+      white-space: nowrap;
+      &:hover {
+        color: var(--active-color);
+      }
+    }
+  }
+}
+
+.mainContainer {
+  padding: 0px var(--main-padding);
+  padding-top: 60px;
+  display: flex;
+  gap: var(--main-padding);
+  width: 100%;
+}
+
+aside {
+  flex-basis: 200px;
+  flex-shrink: 0;
+  position: sticky;
+  height: 300px;
+  top: calc(3rem + 60px);
+  margin-top: 3rem;
+  left: 0px;
+  a {
+    font-size: 1rem;
+    display: block;
+    padding: 10px;
+    background-color: var(--light-bg);
+    margin: 5px 0px;
+    border-radius: 5px;
+    font-weight: bolder;
+    text-decoration: none;
+    color: rgb(48, 48, 48);
+    transition: color 0.1s ease-in-out;
+    &:hover {
+      color: var(--active-color);
+    }
+  }
+  .box {
+    height: 100px;
+    margin-top: 50px;
+    margin-left: 50px;
+    width: 100px;
+    border-radius: 1rem;
+    background-color: var(--active-color);
+    animation: rotates linear;
+    animation-timeline: scroll(root);
+  }
+}
+
+.content {
+  flex-grow: 1;
+  min-height: 400vh;
+  display: flex;
+  flex-direction: column;
+}
+section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 100px;
+  h3 {
+    font-size: 2rem;
+  }
+
+  img {
+    object-fit: cover;
+    border-radius: 1rem;
+  }
+}
+
+.content section:nth-of-type(1) {
+  view-timeline: --section1 y;
+}
+.content section:nth-of-type(2) {
+  view-timeline: --section2 y;
+}
+.content section:nth-of-type(3) {
+  view-timeline: --section3 y;
+}
+.content section:nth-of-type(4) {
+  view-timeline: --section4 y;
+}
+
+aside a,
+header .right a {
+  animation: glowUp linear;
+}
+aside a:nth-of-type(1),
+header .right a:nth-of-type(1) {
+  animation: glowUp linear;
+  animation-timeline: --section1;
+}
+aside a:nth-of-type(2),
+header .right a:nth-of-type(2) {
+  animation-timeline: --section2;
+}
+aside a:nth-of-type(3),
+header .right a:nth-of-type(3) {
+  animation-timeline: --section3;
+}
+aside a:nth-of-type(4),
+header .right a:nth-of-type(4) {
+  animation-timeline: --section4;
+}
+section:nth-of-type(1) {
+  animation: padder linear;
+  animation-timeline: scroll(root);
+}
+
+@keyframes glowUp {
+  49.99% {
+    color: black;
+    background-color: var(--light-bg);
+  }
+  50% {
+    color: white;
+    background-color: var(--active-color);
+  }
+  100% {
+    color: white;
+  }
+}
+
+@keyframes padder {
+  0% {
+    padding-top: calc(100px - 2rem - var(--main-padding));
+  }
+  1% {
+    background-color: transparent;
+    padding-top: 100px;
+  }
+}
+
+@keyframes rotates {
+  25% {
+    border-radius: 50%;
+    background-color: cadetblue;
+  }
+  50% {
+    scale: 1.4;
+    background-color: rgb(0, 94, 255);
+  }
+
+  100% {
+    rotate: 720deg;
+  }
+}

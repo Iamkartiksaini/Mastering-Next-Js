@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react'
-import CustomDynamicDialog from './newDialog'
+import CustomDynamicDialog from '@/components/Dialog/newDialog'
 
 
 const Page = () => {

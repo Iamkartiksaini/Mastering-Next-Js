@@ -21,6 +21,7 @@ body {
   background: var(--primary-glow);
   min-height: 100vh;
   position: relative;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 .main-container {
   padding: 2rem;
