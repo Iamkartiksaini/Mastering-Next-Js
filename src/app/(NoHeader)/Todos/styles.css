@@ -52,6 +52,9 @@
     display: flex;
     gap: 2rem;
     justify-content: space-evenly;
+    h1 {
+      color: #fff;
+    }
     section ul {
       list-style: none;
       display: flex;
@@ -81,6 +84,39 @@
         }
         p {
           font-size: 12px;
+        }
+        .time {
+          text-transform: lowercase;
+          position: absolute;
+          top: 5px;
+          right: 1rem;
+          font-size: 0.6rem;
+        }
+        button {
+          border: none;
+          float: right;
+          color: #fff;
+          padding: 0.2rem 0.5rem;
+          border-radius: 15px;
+          font-size: 0.8rem;
+          margin-top: 20px;
+          transform-origin: center center;
+          transition: background-color 0.3s ease-in-out,
+            box-shadow 0.3s ease-in-out;
+          &.del {
+            background-color: rgb(209 45 45 / 60%);
+            &:hover {
+              box-shadow: 0px 0px 0px 2px #fff;
+              background-color: rgb(209, 45, 45);
+            }
+          }
+          &.edit {
+            background-color: rgba(45, 209, 45, 0.6);
+            &:hover {
+              box-shadow: 0px 0px 0px 2px #fff;
+              background-color: rgb(45, 209, 45);
+            }
+          }
         }
       }
     }

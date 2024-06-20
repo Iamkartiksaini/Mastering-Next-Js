@@ -3,6 +3,7 @@
 import CustomDynamicDialog from '@/components/Dialog/newDialog';
 import './styles.css'
 import { useEffect, useState } from 'react';
+import { formatRelativeTime } from '@/utils/time';
 
 const TodosPage = () => {
 
@@ -13,21 +14,48 @@ const TodosPage = () => {
     deletingQue: [],
   });
 
-
   useEffect(() => {
-    if (localStorage) {
-      const todos = JSON.parse(localStorage.getItem("todosList"))
-      console.log("todos", todos);
-      if (todos && todos["newTodo"].length > 0 || todos["progressing"].length > 0 || todos["deletingQue"].length > 0) {
-        updateSections(todos)
+    try {
+      if (localStorage) {
+        const todos = JSON.parse(localStorage.getItem("todosList"))
+        if (!todos) return
+        if (todos) {
+          if (todos["newTodo"].length > 0 || todos["progressing"].length > 0 || todos["deletingQue"].length > 0) {
+            console.log("todos", todos);
+            updateSections(todos)
+          }
+          return
+        }
       }
+    } catch (error) {
+      console.log("error ===>", error.message);
     }
+
   }, [])
+
 
   useEffect(() => {
     if (localStorage && sections["newTodo"].length > 0 || sections["progressing"].length > 0 || sections["deletingQue"].length > 0) {
       localStorage.setItem("todosList", JSON.stringify(sections))
     }
+    // else {
+
+    //   // localStorage.setItem("todosList", JSON.stringify({
+    //   //   newTodo: [{
+    //   //     "title": "Walking ",
+    //   //     "description": "to moon"
+    //   //   },
+    //   //   {
+    //   //     "title": "random",
+    //   //     "description": "des"
+    //   //   }],
+    //   //   progressing: [{
+    //   //     "title": "Running ",
+    //   //     "description": "25 KM"
+    //   //   }],
+    //   //   deletingQue: [],
+    //   // }))
+    // }
   }, [sections])
 
   const inputChangeHandler = (key, value) => {
@@ -40,59 +68,65 @@ const TodosPage = () => {
 
   function submitHandler(e) {
     e.preventDefault()
+
+
+    const y = Date.now()
+    const x = new Date(y)
     updateSections(pre => {
       const copy = { ...pre }
-      copy["newTodo"] = [newTodo, ...copy["newTodo"]]
+      copy["newTodo"] = [{ ...newTodo, time: x }, ...copy["newTodo"]]
       return copy
     }
     )
+    setNewTodo({ title: "", description: "" })
+    const checkbox = document.getElementsByName("menu" + "form")
+    checkbox[0].checked = false
+
   }
 
   const deleteHandler = (i, section) => {
-    let copyTask = { ...sections };
-    copyTask[section].splice(i, 1)
-    updateSections(copyTask)
-  }
+    const copySections = { ...sections };
+    const updatedSection = copySections[section];
 
-
-  const handleDrop = (e, tab) => {
-    e.preventDefault();
-
-    const data1 = e.dataTransfer.getData("text/plain");
-    const data2 = e.dataTransfer.getData("application/json");
-    const parseData = JSON.parse(data2);
-    const droppingTo = tab;
-
-    const { index, sectionId } = parseData;
-
-    if (sectionId === droppingTo) {
-      reOrderArray({
-        obj: sectionsArray,
-        from: sectionId,
-        draggingItemIndex: index,
-        dropOverIndex: draggingOverItemIndex,
-      });
+    if (updatedSection && updatedSection.length > i) {
+      updatedSection.splice(i, 1);
+      localStorage.setItem("todosList", JSON.stringify({ ...copySections }))
+      updateSections({ ...copySections });
     } else {
-      updateArrays({
-        obj: sectionsArray,
-        from: sectionId,
-        to: droppingTo,
-        itemIndex: index,
-      });
+      console.error(`Invalid section (${section}) or index (${i})`);
     }
   };
 
-  function dragStart(event, index, sectionId) {
-    try {
-      event.dataTransfer.setData("text/plain", "from " + sectionId);
-      event.dataTransfer.setData(
-        "application/json",
-        JSON.stringify({ index, sectionId })
-      );
-    } catch (error) {
-      console.error("Error setting drag data:", error);
+  const handleDrop = (e, to) => {
+    e.preventDefault();
+    const itemType = e.dataTransfer.getData('text/plain');
+    if (itemType === "TodoItem") {
+      const droppedData = e.dataTransfer.getData('application/type');
+      const itemData = JSON.parse(droppedData);
+      const { from, itemIndex } = itemData;
+      if (to == from) return console.log("item is already in this section");
+      const transferThisValue = sections[from][itemIndex]
+      const removeItem = sections[from].filter((val, i) => i !== itemIndex);
+      updateSections((prevState) => ({
+        ...prevState,
+        [from]: removeItem,
+        [to]: [transferThisValue, ...prevState[to]]
+      }));
     }
-  }
+  };
+  const handleDragStart = (e, type, sourceSectionName, itemIndex) => {
+    e.dataTransfer.setData('text/plain', type);
+    if (type === "TodoItem") {
+      const updatedData = { itemIndex, from: sourceSectionName };
+      const serializedData = JSON.stringify(updatedData);
+      e.dataTransfer.setData('application/type', serializedData);
+    }
+    else if (type === "section") {
+      return
+      console.log("section drag");
+    }
+  };
+
 
   function reOrderArray({ obj, from, draggingItemIndex, dropOverIndex }) {
     const shiftData = obj[from][draggingItemIndex];
@@ -103,15 +137,12 @@ const TodosPage = () => {
 
   function mouseOverHandler(event, overThisItem) {
     event.preventDefault();
-    draggingOverItemIndex = overThisItem;
+    const draggingOverItemIndex = overThisItem;
   }
 
-  function updateArrays({ obj, from, to, itemIndex }) {
-    const data = obj[from][itemIndex];
-    obj[from].splice(itemIndex, 1);
-    obj[to].push(data);
-    reMapping(to);
-    reMapping(from);
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
   }
 
 
@@ -135,45 +166,45 @@ const TodosPage = () => {
       </div>
       <div className="dragAndDrop">
         <section className='newTodosList'>
-          <h1>New Todos </h1>
-          <ul onDragOver={() => dragStart(event, 1, '${newTodo}')}>
+          <h1>New Todos / Edit </h1>
+          <ul onDragOver={(e) => handleDragOver(e)} onDrop={(e) => handleDrop(e, "newTodo")}>
             {sections["newTodo"].length == 0 ? <p>No Todos items yet</p> : sections["newTodo"]?.map((todo, i) => {
-              return (<li className='content-box' draggable key={i} >
-                <h5>{todo.title}</h5>
-                <p>{todo.description}</p>
+              return (<li className='content-box' onDragStart={(e) => handleDragStart(e, "TodoItem", "newTodo", i)} draggable key={i} >
+                <h5>{todo?.title}</h5>
+                <p>{todo?.description}</p>
+                <p className='time'>{formatRelativeTime(todo.time)}</p>
+                <button className='edit'>Edit</button>
               </li>)
             })}
           </ul>
         </section>
         <section className='process'>
           <h1>Process</h1>
-          <ul>
+          <ul onDragOver={(e) => handleDragOver(e)} onDrop={(e) => handleDrop(e, "progressing")} >
             {sections["progressing"].length == 0 ? <p>No Todos items yet</p> : sections["progressing"]?.map((todo, i) => {
-              return (<li key={i} >
-                <CustomDynamicDialog TiggerComponent={() => trigger(todo.title)} modelWidth={"50vw"} unqiueKey={"processItem-" + i} label={todo.title}>
-                  <h5>{todo.title}</h5>
-                  <h6>{todo.description}</h6>
-                </CustomDynamicDialog>
+              return (<li className='content-box' draggable onDragStart={(e) => handleDragStart(e, "TodoItem", "progressing", i)} key={i} >
+                <h5>{todo?.title}</h5>
+                <h6>{todo?.description}</h6>
+                <p className='time'>{formatRelativeTime(todo.time)}</p>
               </li>)
             })}
           </ul>
         </section>
         <section className='deleteQue'>
           <h1>Auto Delete Que </h1>
-          <ul>
+          <ul onDragOver={(e) => handleDragOver(e)} onDrop={(e) => handleDrop(e, "deletingQue")}>
             {sections["deletingQue"].length == 0 ? <p>No Todos items yet</p> : sections["deletingQue"]?.map((todo, i) => {
-              return (<li key={i} >
-                <CustomDynamicDialog TiggerComponent={() => trigger(todo.title)} modelWidth={"50vw"} unqiueKey={"deleteItem-" + i} label={todo.title}>
-                  <div>
-                    <h5>{todo.title}</h5>
-                    <h6>{todo.description}</h6>
-                  </div>
-                  <button onClick={() => {
-                    deleteHandler(i, "deletingQue")
-                    const key = document.getElementById("menu" + "deletingQue-" + i)
-                    key.click()
-                  }}>Delete Immedatly</button>
-                </CustomDynamicDialog>
+              return (<li className='content-box' draggable onDragStart={(e) => handleDragStart(e, "TodoItem", "deletingQue", i)} key={i} >
+                <div>
+                  <h5>{todo?.title}</h5>
+                  <h6>{todo?.description}</h6>
+                  <p className='time'>{formatRelativeTime(todo.time)}</p>
+                </div>
+                <button className='del' onClick={() => {
+                  deleteHandler(i, "deletingQue")
+                  // const key = document.getElementById("menu" + "deletingQue-" + i)
+                  // key.click()
+                }}>Delete Immedatly</button>
               </li>)
             })}
           </ul>

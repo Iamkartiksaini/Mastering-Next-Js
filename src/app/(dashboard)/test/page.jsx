@@ -57,15 +57,7 @@ const Page = () => {
             unqiueKey='one'
             label="Button"
         />
-        <CustomDynamicDialog
-            modelHeight={"300px"}
-            modelWidth={"300px"}
-            fullMode={false}
-            posX={"right"}
-            posY={"bottom"}
-            unqiueKey='two'
-            label="Button 2"
-        />
+        <br />
     </div>
     )
 }
