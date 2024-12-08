@@ -17,8 +17,8 @@ const Header = () => {
         }
         ,
         {
-            name: "TanStack",
-            link: "/TanStack"
+            name: "Query",
+            link: "/Query"
         }
         , {
             name: "Mix Component",

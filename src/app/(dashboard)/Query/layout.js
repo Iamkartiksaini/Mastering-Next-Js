@@ -1,7 +1,7 @@
 import QueryProviderComponent from "@/stores/ReactQuery/page";
 import "./style.scss";
 export const metadata = {
-  title: "React Query",
+  title: "TanStack-Query",
 };
 
 export default function Layout({ children, users }) {

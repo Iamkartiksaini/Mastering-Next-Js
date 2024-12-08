@@ -1,4 +1,5 @@
-'use client';
+'use client';;
+import { use } from "react";
 
 import { useQuery } from 'react-query';
 
@@ -13,7 +14,8 @@ const fetchUserData = async (id) => {
     return { postsData, usersData };
 };
 
-const Page = ({ searchParams }) => {
+const Page = props => {
+    const searchParams = use(props.searchParams);
     const id = searchParams?.id || 1;
     const { isLoading, error, data } = useQuery(['userData', id], () => fetchUserData(id), {
         staleTime: 300000, // 5 minutes
